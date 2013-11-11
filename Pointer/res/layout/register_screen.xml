@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
+    android:background="@drawable/city_04"
+    android:gravity="center_horizontal|center"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -18,30 +19,20 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/reg_screen_invite"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/reg_screen_hint"
+        android:inputType="numberPassword" />
 
-        <EditText
-            android:id="@+id/reg_screen_invite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/reg_screen_hint"
-            android:inputType="numberPassword" >
-
-            <requestFocus />
-        </EditText>
-
-        <Button
-            android:id="@+id/reg_screen_check"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="@string/reg_screen_check"
-            android:text="@string/reg_screen_check" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/reg_screen_check"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/reg_screen_check"
+        android:text="@string/reg_screen_check" />
 
 </LinearLayout>
