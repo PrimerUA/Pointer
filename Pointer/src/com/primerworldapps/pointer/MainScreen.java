@@ -17,11 +17,18 @@ public class MainScreen extends SherlockActivity {
 		
 		//если не авторизирован, то
 		startActivity(new Intent(MainScreen.this, AuthorizationScreen.class));
-		
 		//TODO: иначе открываем этот экран
 	}
 
 	private void initScreen() {
 		
 	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		finish();
+	}
+	
+	
 }

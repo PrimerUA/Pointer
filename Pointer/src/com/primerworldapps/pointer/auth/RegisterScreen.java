@@ -1,9 +1,13 @@
 package com.primerworldapps.pointer.auth;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.primerworldapps.pointer.R;
+import com.primerworldapps.pointer.util.Utils;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -42,10 +46,45 @@ public class RegisterScreen extends SherlockActivity {
 	}
 	
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getSupportMenuInflater().inflate(R.menu.auth_menu, menu);
+		return true;
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		default: {
-			this.finish();
+		case R.id.menu_legalnotices: {
+			// String LicenseInfo =
+			// GooglePlayServicesUtil.getOpenSourceSoftwareLicenseInfo(getApplicationContext());
+			// AlertDialog.Builder LicenseDialog = new
+			// AlertDialog.Builder(this);
+			// LicenseDialog.setTitle(getString(R.string.menu_legalnotices));
+			// LicenseDialog.setMessage(LicenseInfo);
+			// LicenseDialog.show();
+		}
+		case R.id.menu_auth_about: {
+			AlertDialog.Builder AboutDialog = new AlertDialog.Builder(this);
+			AboutDialog.setTitle(getString(R.string.app_about_title));
+			AboutDialog.setMessage(getString(R.string.app_about_project));
+			AboutDialog.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			});
+			AboutDialog.setNeutralButton(R.string.app_about_website, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Utils.visitUrl(RegisterScreen.this, getString(R.string.pointer_website_url));
+				}
+			});
+			AboutDialog.show();
+		}
+		case R.id.homeAsUp: {
+			finish();
 		}
 		}
 
