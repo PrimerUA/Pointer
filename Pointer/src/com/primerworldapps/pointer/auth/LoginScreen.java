@@ -1,30 +1,32 @@
 package com.primerworldapps.pointer.auth;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
-import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
-import com.google.android.gms.plus.PlusClient;
-import com.primerworldapps.pointer.R;
-import com.primerworldapps.pointer.util.Utils;
-
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentSender.SendIntentException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentSender.SendIntentException;
+
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
+import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
+import com.google.android.gms.common.Scopes;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.plus.PlusClient;
+import com.primerworldapps.pointer.R;
+import com.primerworldapps.pointer.util.Utils;
 
 public class LoginScreen extends SherlockActivity implements ConnectionCallbacks, OnConnectionFailedListener {
 
-	private Button googleButton;
+	private SignInButton googleButton;
 	private Button facebookButton;
 	private Button registerButton;
 
@@ -46,7 +48,10 @@ public class LoginScreen extends SherlockActivity implements ConnectionCallbacks
 	}
 
 	private void initGoogle() {
-		mPlusClient = new PlusClient.Builder(this, this, this).setActions("http://schemas.google.com/AddActivity", "http://schemas.google.com/BuyActivity").build();
+		mPlusClient = new PlusClient.Builder(this, this, this).setActions("http://schemas.google.com/AddActivity", "http://schemas.google.com/BuyActivity")
+				.setScopes(Scopes.PLUS_LOGIN).build();
+		mConnectionProgressDialog = new ProgressDialog(this);
+		mConnectionProgressDialog.setMessage("Signing in...");
 	}
 
 	private void initScreen() {
@@ -55,7 +60,7 @@ public class LoginScreen extends SherlockActivity implements ConnectionCallbacks
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setTitle(getString(R.string.login_screen_title));
 
-		googleButton = (Button) findViewById(R.id.login_screen_google);
+		googleButton = (SignInButton) findViewById(R.id.login_screen_google);
 		facebookButton = (Button) findViewById(R.id.login_screen_facebook);
 		registerButton = (Button) findViewById(R.id.login_screen_reg);
 
@@ -63,12 +68,12 @@ public class LoginScreen extends SherlockActivity implements ConnectionCallbacks
 
 			@Override
 			public void onClick(View v) {
-				mConnectionProgressDialog = new ProgressDialog(v.getContext());
-				mConnectionProgressDialog.setMessage("Signing in...");
 				if (!mPlusClient.isConnected()) {
 					if (mConnectionResult == null) {
 						mConnectionProgressDialog.show();
+						mPlusClient.connect();
 					} else {
+						mPlusClient.connect();
 						try {
 							mConnectionResult.startResolutionForResult(LoginScreen.this, REQUEST_CODE_RESOLVE_ERR);
 						} catch (SendIntentException e) {
@@ -103,8 +108,9 @@ public class LoginScreen extends SherlockActivity implements ConnectionCallbacks
 
 	@Override
 	protected void onStart() {
-		super.onStart();
 		mPlusClient.connect();
+		super.onStart();
+
 	}
 
 	@Override
