@@ -1,6 +1,6 @@
 package com.primerworldapps.pointer.ui.activity;
 
-import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,5 +9,5 @@ import android.app.Activity;
  * Time: 22:41
  * To change this template use File | Settings | File Templates.
  */
-public abstract class BaseActivity extends Activity {
+public abstract class BaseActivity extends FragmentActivity {
 }
