@@ -9,7 +9,9 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+import com.facebook.*;
+import com.facebook.model.GraphUser;
+import com.facebook.widget.LoginButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -17,8 +19,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.plus.PlusClient;
-import com.google.android.gms.plus.model.people.Person;
 import com.primerworldapps.pointer.R;
+
+import java.util.Arrays;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,27 +30,33 @@ import com.primerworldapps.pointer.R;
  * Time: 17:24
  * To change this template use File | Settings | File Templates.
  */
-public class LoginActivity extends BaseActivity implements GooglePlayServicesClient.ConnectionCallbacks,
+public class LoginActivity extends BaseActivity implements Session.StatusCallback,
+                                                           GooglePlayServicesClient.ConnectionCallbacks,
                                                            GooglePlayServicesClient.OnConnectionFailedListener{
     private static final float DEFAULT_ZOOM_LEVEL = 13.5f;
     private static final int REQUEST_CODE_RESOLVE_ERR = 9000;
 
     private PlusClient plusClient;
+    private UiLifecycleHelper uiHelper;
 
     @Override
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         setContentView(R.layout.login_activity);
 
-        plusClient = new PlusClient.Builder(this, this, this)
-                                   .setVisibleActivities("http://schemas.google.com/AddActivity", "http://schemas.google.com/BuyActivity")
-                                   .build();
+        //For Google+
+        plusClient = new PlusClient.Builder(this, this, this).build();
         findViewById(R.id.google_plus_login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loginGooglePlus();
             }
         });
+
+        //For facebook
+        ((LoginButton)findViewById(R.id.facebook_login)).setReadPermissions(Arrays.asList("email"));
+        uiHelper = new UiLifecycleHelper(this, this);
+        uiHelper.onCreate(savedState);
 
         initBackgroundMap();
     }
@@ -62,6 +71,7 @@ public class LoginActivity extends BaseActivity implements GooglePlayServicesCli
     protected void onPause() {
         super.onPause();
 
+        uiHelper.onPause();
         if (isFinishing()) {
             plusClient.connect();
         }
@@ -74,13 +84,30 @@ public class LoginActivity extends BaseActivity implements GooglePlayServicesCli
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        uiHelper.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        uiHelper.onDestroy();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        uiHelper.onSaveInstanceState(outState);
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_RESOLVE_ERR && resultCode == RESULT_OK) {
             plusClient.connect();
         }
-        //TODO
-        //uiHelper.onActivityResult(requestCode, resultCode, data);
+        uiHelper.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -110,8 +137,8 @@ public class LoginActivity extends BaseActivity implements GooglePlayServicesCli
 
     @Override
     public void onDisconnected() {
-        Log.d("KVEST_TAG", "onDisconnected");
         //TODO
+        Log.d("KVEST_TAG", "onDisconnected");
     }
 
     private void initBackgroundMap() {
@@ -126,6 +153,34 @@ public class LoginActivity extends BaseActivity implements GooglePlayServicesCli
         if (location != null) {
             GoogleMap map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.background_map)).getMap();
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), DEFAULT_ZOOM_LEVEL));
+        }
+    }
+
+    @Override
+    public void call(Session session, SessionState state, Exception exception) {
+        if (state.isOpened()) {
+            Request me = Request.newMeRequest(session, new Request.GraphUserCallback() {
+
+                // callback after Graph API response with user object
+                @Override
+                public void onCompleted(GraphUser user, Response response) {
+                    if (user != null) {
+                        String text = "From Facebook+:\nName: " + user.getName() + "\n";
+                        text += "First Name: " + user.getFirstName() + "\n";
+                        text += "FLast Name: " + user.getLastName() + "\n";
+                        text += "gender:" + user.asMap().get("gender").toString() + "\n";
+                        text += "email: " + user.asMap().get("email").toString() + "\n";
+                        Log.i("KVEST_TAG", "Hello " + user.getName() + "!");
+                        Log.d("KVEST_TAG", text);
+                    } else {
+                        Log.d("KVEST_TAG", "user is \"null\"");
+                    }
+                }
+            });
+            me.executeAsync();
+        } else if (state.isClosed()) {
+            //TODO
+            Log.d("KVEST_TAG", "state is \"closed\"");
         }
     }
 }
