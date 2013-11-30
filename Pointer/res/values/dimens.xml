@@ -1,2 +1,4 @@
 <resources>
+    <dimen name="login_button_width">250dip</dimen>
+    <dimen name="login_button_margin">10dip</dimen>
 </resources>

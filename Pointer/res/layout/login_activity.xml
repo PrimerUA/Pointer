@@ -2,7 +2,8 @@
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="match_parent"
-             android:layout_height="match_parent">
+             android:layout_height="match_parent"
+             android:keepScreenOn="true">
     <fragment
         xmlns:map="http://schemas.android.com/apk/res-auto"
         android:id="@+id/background_map"
@@ -14,21 +15,44 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1.0" >
 
-        <com.facebook.widget.LoginButton
-                android:id="@+id/facebook_login"
-                android:layout_width="wrap_content"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight=".24"
+            android:background="@color/blur" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight=".44"
+            android:background="@android:color/transparent" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight=".32"
+            android:background="@color/blur">
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"/>
-        <com.google.android.gms.common.SignInButton
-                android:id="@+id/google_plus_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center">
+                <com.google.android.gms.common.SignInButton
+                    android:id="@+id/google_plus_login"
+                    android:layout_width="@dimen/login_button_width"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"/>
+                <com.facebook.widget.LoginButton
+                    android:id="@+id/facebook_login"
+                    android:layout_width="@dimen/login_button_width"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/google_plus_login"
+                    android:layout_marginTop="@dimen/login_button_margin"
+                    android:layout_centerHorizontal="true"/>
+            </RelativeLayout>
+        </FrameLayout>
     </LinearLayout>
-
 </FrameLayout>

@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import com.facebook.*;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
