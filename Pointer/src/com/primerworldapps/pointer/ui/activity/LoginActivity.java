@@ -21,6 +21,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.plus.PlusClient;
+import com.google.android.gms.plus.model.people.Person;
 import com.primerworldapps.pointer.R;
 
 import java.util.Arrays;
@@ -72,6 +73,8 @@ public class LoginActivity extends BaseActivity implements Session.StatusCallbac
     private void loginGooglePlus() {
         if (!plusClient.isConnected()) {
             plusClient.connect();
+        } else {
+            registerWithGooglePlus(plusClient.getCurrentPerson());
         }
     }
 
@@ -81,7 +84,7 @@ public class LoginActivity extends BaseActivity implements Session.StatusCallbac
 
         uiHelper.onPause();
         if (isFinishing()) {
-            plusClient.connect();
+            plusClient.disconnect();
         }
     }
 
@@ -127,27 +130,27 @@ public class LoginActivity extends BaseActivity implements Session.StatusCallbac
                 plusClient.connect();
             }
         } else {
+            Log.d("KVEST_TAG", "Google+ error");
             //TODO
         }
     }
 
-    @Override
-    public void onConnected(Bundle connectionHint) {
-        //TODO
-        //plusClient.getCurrentPerson()
-        String text = "From Google+:\nName: " + plusClient.getCurrentPerson().getName().getFormatted() + "\n";
-        text += "First Name: " + plusClient.getCurrentPerson().getName().getGivenName() + "\n";
-        text += "FLast Name: " + plusClient.getCurrentPerson().getName().getFamilyName() + "\n";
-        text += "gender:" + plusClient.getCurrentPerson().getGender() + "\n";
+    private void registerWithGooglePlus(Person me) {
+        String text = "From Google+:\nName: " + me.getName().getFormatted() + "\n";
+        text += "First Name: " + me.getName().getGivenName() + "\n";
+        text += "FLast Name: " + me.getName().getFamilyName() + "\n";
+        text += "gender:" + me.getGender() + "\n";
         text += "email: " + plusClient.getAccountName() + "\n";
         Toast.makeText(this, text, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void onDisconnected() {
-        //TODO
-        Log.d("KVEST_TAG", "onDisconnected");
+    public void onConnected(Bundle connectionHint) {
+        registerWithGooglePlus(plusClient.getCurrentPerson());
     }
+
+    @Override
+    public void onDisconnected() {}
 
     private void initBackgroundMap() {
         //get last known position
