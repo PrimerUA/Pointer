@@ -15,6 +15,7 @@ import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -59,7 +60,13 @@ public class LoginActivity extends BaseActivity implements Session.StatusCallbac
         uiHelper = new UiLifecycleHelper(this, this);
         uiHelper.onCreate(savedState);
 
-        initBackgroundMap();
+        //init map or show error
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (resultCode == ConnectionResult.SUCCESS) {
+            initBackgroundMap();
+        } else {
+            GooglePlayServicesUtil.getErrorDialog(resultCode, this, 0).show();
+        }
     }
 
     private void loginGooglePlus() {
