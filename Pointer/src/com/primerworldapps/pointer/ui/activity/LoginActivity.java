@@ -9,7 +9,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
+import android.widget.Toast;
 import com.facebook.*;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
@@ -133,7 +133,7 @@ public class LoginActivity extends BaseActivity implements Session.StatusCallbac
         text += "FLast Name: " + plusClient.getCurrentPerson().getName().getFamilyName() + "\n";
         text += "gender:" + plusClient.getCurrentPerson().getGender() + "\n";
         text += "email: " + plusClient.getAccountName() + "\n";
-        Log.d("KVEST_TAG", text);
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -172,9 +172,9 @@ public class LoginActivity extends BaseActivity implements Session.StatusCallbac
                         text += "gender:" + user.asMap().get("gender").toString() + "\n";
                         text += "email: " + user.asMap().get("email").toString() + "\n";
                         Log.i("KVEST_TAG", "Hello " + user.getName() + "!");
-                        Log.d("KVEST_TAG", text);
+                        Toast.makeText(LoginActivity.this, text, Toast.LENGTH_LONG).show();
                     } else {
-                        Log.d("KVEST_TAG", "user is \"null\"");
+                        Toast.makeText(LoginActivity.this, "user is \"null\"", Toast.LENGTH_LONG).show();
                     }
                 }
             });
