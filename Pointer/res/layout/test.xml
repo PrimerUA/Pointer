@@ -9,4 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add mock data" />
+    <Button
+        android:id="@+id/show_proposal_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show proposal list" />
 </LinearLayout>
