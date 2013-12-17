@@ -1,5 +1,6 @@
 package com.primerworldapps.pointer.ui.fragment;
 
+import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -7,6 +8,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.view.View;
+import android.widget.AdapterView;
 import com.primerworldapps.pointer.R;
 import com.primerworldapps.pointer.contentprovider.PointerProviderMetadata;
 import com.primerworldapps.pointer.datastorage.table.ProposalTable;
@@ -23,6 +25,7 @@ public class ProposalsListFragment extends ListFragment implements LoaderManager
     private static final int LOAD_PROPOSALS_ID = 0;
 
     private ProposalsListAdapter adapter;
+    private OnProposalSelect onProposalSelect;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -33,9 +36,26 @@ public class ProposalsListFragment extends ListFragment implements LoaderManager
         int[] to = {R.id.proposal_id, R.id.user_name, R.id.user_level, R.id.latitude, R.id.longitude };
         adapter = new ProposalsListAdapter(getActivity(), R.layout.proposals_list_item, null, from, to, ProposalsListAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         setListAdapter(adapter);
+        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (onProposalSelect != null) {
+                    onProposalSelect.onProposalSelected(id);
+                }
+            }
+        });
 
         //load cursor
         getActivity().getSupportLoaderManager().initLoader(LOAD_PROPOSALS_ID, null, this);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        try {
+            onProposalSelect = (OnProposalSelect) activity;
+        } catch (ClassCastException cce) {}
     }
 
     @Override
@@ -56,5 +76,9 @@ public class ProposalsListFragment extends ListFragment implements LoaderManager
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
         adapter.swapCursor(null);
+    }
+
+    public interface OnProposalSelect {
+        public void onProposalSelected(long proposalId);
     }
 }
