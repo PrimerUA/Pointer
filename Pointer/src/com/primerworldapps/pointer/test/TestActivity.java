@@ -40,7 +40,7 @@ public class TestActivity extends Activity {
 
     private void addMockData() {
         ContentValues values = new ContentValues(5);
-        values.put(ProposalTable.ID_COLUMN, 1l);
+        values.put(ProposalTable._ID, 1l);
         values.put(ProposalTable.USERNAME_COLUMN , "user 1");
         values.put(ProposalTable.USER_LEVEL_COLUMN, 1);
         values.put(ProposalTable.LATITUDE_COLUMN, 46.461111);
@@ -48,7 +48,7 @@ public class TestActivity extends Activity {
         Log.d("KVEST_TAG", "add=" + getContentResolver().insert(PointerProviderMetadata.PROPOSAL_ITEMS_URI, values).toString());
 
         values = new ContentValues(5);
-        values.put(ProposalTable.ID_COLUMN, 2l);
+        values.put(ProposalTable._ID, 2l);
         values.put(ProposalTable.USERNAME_COLUMN , "user 2");
         values.put(ProposalTable.USER_LEVEL_COLUMN, 2);
         values.put(ProposalTable.LATITUDE_COLUMN, 46.457434);
@@ -56,7 +56,7 @@ public class TestActivity extends Activity {
         Log.d("KVEST_TAG", "add=" + getContentResolver().insert(PointerProviderMetadata.PROPOSAL_ITEMS_URI, values).toString());
 
         values = new ContentValues(5);
-        values.put(ProposalTable.ID_COLUMN, 3l);
+        values.put(ProposalTable._ID, 3l);
         values.put(ProposalTable.USERNAME_COLUMN , "user 3");
         values.put(ProposalTable.USER_LEVEL_COLUMN, 3);
         values.put(ProposalTable.LATITUDE_COLUMN, 46.447112);
@@ -64,7 +64,7 @@ public class TestActivity extends Activity {
         Log.d("KVEST_TAG", "add=" + getContentResolver().insert(PointerProviderMetadata.PROPOSAL_ITEMS_URI, values).toString());
 
         values = new ContentValues(5);
-        values.put(ProposalTable.ID_COLUMN, 4l);
+        values.put(ProposalTable._ID, 4l);
         values.put(ProposalTable.USERNAME_COLUMN , "user 4");
         values.put(ProposalTable.USER_LEVEL_COLUMN, 4);
         values.put(ProposalTable.LATITUDE_COLUMN, 46.442840);
@@ -72,7 +72,7 @@ public class TestActivity extends Activity {
         Log.d("KVEST_TAG", "add=" + getContentResolver().insert(PointerProviderMetadata.PROPOSAL_ITEMS_URI, values).toString());
 
         values = new ContentValues(5);
-        values.put(ProposalTable.ID_COLUMN, 5l);
+        values.put(ProposalTable._ID, 5l);
         values.put(ProposalTable.USERNAME_COLUMN , "user 5");
         values.put(ProposalTable.USER_LEVEL_COLUMN, 5);
         values.put(ProposalTable.LATITUDE_COLUMN, 46.466568);

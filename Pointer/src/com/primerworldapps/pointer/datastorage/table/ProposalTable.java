@@ -12,18 +12,16 @@ import android.provider.BaseColumns;
 public class ProposalTable implements BaseColumns {
     public static final String TABLE_NAME = "proposal";
 
-    public static final String ID_COLUMN = "id";
     public static final String USERNAME_COLUMN = "user_name";
     public static final String USER_LEVEL_COLUMN = "user_level";
     public static final String LONGITUDE_COLUMN = "longitude";
     public static final String LATITUDE_COLUMN = "latitude";
 
-    public static final String[] FULL_PROJECTION = {_ID, ID_COLUMN, USERNAME_COLUMN, USER_LEVEL_COLUMN,
+    public static final String[] FULL_PROJECTION = {_ID, USERNAME_COLUMN, USER_LEVEL_COLUMN,
                                                     LONGITUDE_COLUMN, LATITUDE_COLUMN};
 
     public static final String CREATE_TABLE_SQL = "CREATE TABLE \"" + TABLE_NAME + "\" (\"" +
-            _ID + "\" INTEGER PRIMARY KEY AUTOINCREMENT, \"" +
-            ID_COLUMN + "\" INTEGER UNIQUE, \"" +
+            _ID + "\" INTEGER PRIMARY KEY, \"" +
             USERNAME_COLUMN + "\" TEXT DEFAULT \"\", \"" +
             USER_LEVEL_COLUMN + "\" INTEGER DEFAULT 0, \"" +
             LONGITUDE_COLUMN + "\" REAL DEFAULT 0, \"" +
