@@ -1,2 +1,4 @@
 <resources>
+    <style name="com.primerworldapps.pointer.AppTheme" parent="@style/Theme.AppCompat.Light">
+    </style>
 </resources>

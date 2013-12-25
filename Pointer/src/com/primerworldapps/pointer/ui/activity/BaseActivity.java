@@ -2,6 +2,7 @@ package com.primerworldapps.pointer.ui.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 import com.bugsense.trace.BugSenseHandler;
 
 /**
@@ -11,7 +12,7 @@ import com.bugsense.trace.BugSenseHandler;
  * Time: 22:41
  * To change this template use File | Settings | File Templates.
  */
-public abstract class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends ActionBarActivity {
     private static final String BUGSENS_APIKEY = "06d6fe32";
 
     @Override
