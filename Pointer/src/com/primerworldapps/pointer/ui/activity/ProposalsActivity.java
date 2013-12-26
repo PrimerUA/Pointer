@@ -3,7 +3,9 @@ package com.primerworldapps.pointer.ui.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.util.Log;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import com.primerworldapps.pointer.R;
@@ -71,8 +73,8 @@ public class ProposalsActivity extends BaseActivity implements ProposalsMapFragm
     public boolean onCreateOptionsMenu(Menu menu)
     {
         switch (shownFragment) {
-            case MAP_ID : menu.add(0, LIST_ID, 0, getString(R.string.list)).setIcon(android.R.drawable.ic_menu_view).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM); break;
-            case LIST_ID : menu.add(0, MAP_ID, 0, getString(R.string.map)).setIcon(android.R.drawable.ic_dialog_map).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM); break;
+            case MAP_ID : MenuItemCompat.setShowAsAction(menu.add(0, LIST_ID, 0, getString(R.string.list)).setIcon(android.R.drawable.ic_menu_view), MenuItem.SHOW_AS_ACTION_IF_ROOM); break;
+            case LIST_ID : MenuItemCompat.setShowAsAction(menu.add(0, MAP_ID, 0, getString(R.string.map)).setIcon(android.R.drawable.ic_dialog_map), MenuItem.SHOW_AS_ACTION_IF_ROOM); break;
         }
 
         return true;

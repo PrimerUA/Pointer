@@ -11,6 +11,8 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.view.View;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -36,12 +38,15 @@ public class ProposalsMapFragment extends SupportMapFragment implements LoaderMa
     private static final float DEFAULT_ZOOM_LEVEL = 13.5f;
 
     private Map<String, Long> markerIds = new HashMap<String, Long>();
-
     private OnProposalSelect onProposalSelect;
+    private boolean mapAvailable;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        initMap();
+        mapAvailable = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity()) == ConnectionResult.SUCCESS;
+        if (mapAvailable) {
+            initMap();
+        }
 
         //load cursor with points
         getActivity().getSupportLoaderManager().initLoader(LOAD_PROPOSALS_ID, null, this);
@@ -119,6 +124,10 @@ public class ProposalsMapFragment extends SupportMapFragment implements LoaderMa
     }
 
     private void updateProposals(Cursor cursor) {
+        if (!mapAvailable) {
+            return;
+        }
+
         GoogleMap map = getMap();
 
         //clear old data
