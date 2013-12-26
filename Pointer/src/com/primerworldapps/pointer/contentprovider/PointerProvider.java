@@ -72,7 +72,8 @@ public class PointerProvider extends ContentProvider {
 
         switch (uriMatcher.match(uri)) {
             case PROPOSALS_URI_INDICATOR :
-                rowId = db.insert(ProposalTable.TABLE_NAME, null, values);
+                //replace works as "INSERT OR REPLACE"
+                rowId = db.replace(ProposalTable.TABLE_NAME, null, values);
                 if (rowId > 0)
                 {
                     Uri resultUri = ContentUris.withAppendedId(uri, rowId);
