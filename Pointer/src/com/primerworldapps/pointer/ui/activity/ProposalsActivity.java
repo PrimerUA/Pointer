@@ -1,8 +1,11 @@
 package com.primerworldapps.pointer.ui.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.primerworldapps.pointer.R;
 import com.primerworldapps.pointer.ui.fragment.ProposalsListFragment;
@@ -17,6 +20,13 @@ import com.primerworldapps.pointer.ui.fragment.ProposalsMapFragment;
  */
 public class ProposalsActivity extends BaseActivity implements ProposalsMapFragment.OnProposalSelect,
                                                                ProposalsListFragment.OnProposalSelect {
+    private static final int MAP_ID = 0;
+    private static final int LIST_ID = 1;
+
+    private ProposalsMapFragment mapFragment;
+    private ProposalsListFragment listFragment;
+    private int shownFragment;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,13 +35,80 @@ public class ProposalsActivity extends BaseActivity implements ProposalsMapFragm
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             try {
-                transaction.add(R.id.fragment_container, new ProposalsMapFragment());
+                transaction.add(R.id.fragment_container, getMapFragment());
+                shownFragment = MAP_ID;
             } finally {
                 transaction.commit();
             }
         } else {
-            //TODO
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+            if (fragment instanceof ProposalsMapFragment) {
+                mapFragment = (ProposalsMapFragment)fragment;
+                shownFragment = MAP_ID;
+            } else if (fragment instanceof ProposalsListFragment) {
+                listFragment = (ProposalsListFragment)fragment;
+                shownFragment = LIST_ID;
+            }
         }
+    }
+
+    private ProposalsMapFragment getMapFragment() {
+        if (mapFragment == null) {
+            mapFragment = new ProposalsMapFragment();
+        }
+
+        return mapFragment;
+    }
+
+    private ProposalsListFragment getListFragment() {
+        if (listFragment == null) {
+            listFragment = new ProposalsListFragment();
+        }
+
+        return listFragment;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        switch (shownFragment) {
+            case MAP_ID : menu.add(0, LIST_ID, 0, getString(R.string.list)).setIcon(android.R.drawable.ic_menu_view).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM); break;
+            case LIST_ID : menu.add(0, MAP_ID, 0, getString(R.string.map)).setIcon(android.R.drawable.ic_dialog_map).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM); break;
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case MAP_ID : showMap(); return true;
+            case LIST_ID : showList(); return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showMap() {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        try {
+            transaction.replace(R.id.fragment_container, getMapFragment());
+            shownFragment = MAP_ID;
+        } finally {
+            transaction.commit();
+        }
+        supportInvalidateOptionsMenu();
+    }
+
+    private void showList() {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        try {
+            transaction.replace(R.id.fragment_container, getListFragment());
+            shownFragment = LIST_ID;
+        } finally {
+            transaction.commit();
+        }
+        supportInvalidateOptionsMenu();
     }
 
     @Override

@@ -108,7 +108,6 @@ public class ProposalsMapFragment extends SupportMapFragment implements LoaderMa
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         updateProposals(cursor);
-        cursor.close();
     }
 
     @Override
