@@ -93,8 +93,7 @@ public class ProposalsActivity extends BaseActivity implements ProposalsMapFragm
     private void showMap() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         try {
-            transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left/*R.animator.flip_right_in, R.animator.flip_right_out,
-                                            R.anim.flip_left_in, R.anim.flip_left_out*/);
+            transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
             transaction.replace(R.id.fragment_container, getMapFragment());
             shownFragment = MAP_ID;
         } finally {
@@ -106,8 +105,7 @@ public class ProposalsActivity extends BaseActivity implements ProposalsMapFragm
     private void showList() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         try {
-            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right/*R.anim.flip_right_in, R.anim.flip_right_out,
-                    R.animator.flip_left_in, R.animator.flip_left_out */);
+            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right);
             transaction.replace(R.id.fragment_container, getListFragment());
             shownFragment = LIST_ID;
         } finally {
