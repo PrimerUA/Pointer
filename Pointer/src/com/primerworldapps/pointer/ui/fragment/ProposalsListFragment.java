@@ -45,7 +45,7 @@ public class ProposalsListFragment extends ListFragment implements LoaderManager
         });
 
         //load cursor
-        getActivity().getSupportLoaderManager().initLoader(LOAD_PROPOSALS_ID, null, this);
+        getLoaderManager().initLoader(LOAD_PROPOSALS_ID, null, this);
     }
 
     @Override

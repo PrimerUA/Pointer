@@ -49,7 +49,7 @@ public class ProposalsMapFragment extends SupportMapFragment implements LoaderMa
         }
 
         //load cursor with points
-        getActivity().getSupportLoaderManager().initLoader(LOAD_PROPOSALS_ID, null, this);
+        getLoaderManager().initLoader(LOAD_PROPOSALS_ID, null, this);
     }
 
     private void initMap() {
