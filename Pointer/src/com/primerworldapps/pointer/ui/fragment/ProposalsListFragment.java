@@ -32,9 +32,8 @@ public class ProposalsListFragment extends ListFragment implements LoaderManager
         super.onViewCreated(view, savedInstanceState);
 
         //create and set adapter
-        String[] from = {ProposalTable._ID, ProposalTable.USERNAME_COLUMN, ProposalTable.USER_LEVEL_COLUMN, ProposalTable.LATITUDE_COLUMN, ProposalTable.LONGITUDE_COLUMN };
-        int[] to = {R.id.proposal_id, R.id.user_name, R.id.user_level, R.id.latitude, R.id.longitude };
-        adapter = new ProposalsListAdapter(getActivity(), R.layout.proposals_list_item, null, from, to, ProposalsListAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+
+        adapter = new ProposalsListAdapter(getActivity(), ProposalsListAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         setListAdapter(adapter);
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
