@@ -1,0 +1,24 @@
+MainScreen
+
+1) get: list[Point] - получение  списка координат точек от сервера для нанесения на карту (параметры from, length)
+
+PointDetailsScreen
+
+2) get: Point - получение деталей выбранной точки (параметр point_id)
+
+UserProfileScreen
+
+3) get: UserInfo - получение полного профиля пользователя (параметр user_id)
+
+NewDescriptionScreen
+
+4) post: Point - создание новой точки встречи (параметр point_id)
+
+ConfirmPointScreen
+
+5.1) get: ConfirmationCode - код для подтверждения сделки (параметр user_id)
+5.2) post: ConfirmationCode - проверка совпадения кодов
+
+AllPointsScreen
+
+6) get: list[PointView] - получение списка сделок с основной информацией о них (параметры from, length)
