@@ -4,7 +4,8 @@ MainScreen
 
 PointDetailsScreen
 
-2) get: Point - получение деталей выбранной точки (параметр point_id)
+2.1) get: Point - получение деталей выбранной точки (параметр point_id)
+2.2) post:согласие на встречу /!/отправка пуш уведомления партнеру о согласии
 
 UserProfileScreen
 
@@ -21,4 +22,12 @@ ConfirmPointScreen
 
 AllPointsScreen
 
-6) get: list[PointView] - получение списка сделок с основной информацией о них (параметры from, length)
+6) get: list[PointView] - получение списка сделок с основной информацией о них (параметры from, length, type = 0,1)
+
+RewardsScreen
+
+7) post: list[Rewards] - отправка наград, которые лайкнул пользователь своему партнеру (параметр user_id)
+
+CurrentPointScreen
+
+8) post: отказ от встречи /!/отправка пуш уведомления партнеру об отказе
