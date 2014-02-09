@@ -9,7 +9,6 @@ import android.view.View;
 import com.primerworldapps.pointer.R;
 import com.primerworldapps.pointer.contentprovider.PointerProviderMetadata;
 import com.primerworldapps.pointer.datastorage.table.ProposalTable;
-import com.primerworldapps.pointer.ui.activity.ProposalsActivity;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,12 +27,6 @@ public class TestActivity extends Activity {
             @Override
             public void onClick(View v) {
                 addMockData();
-            }
-        });
-        findViewById(R.id.show_proposal_activity).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(TestActivity.this, ProposalsActivity.class));
             }
         });
     }
