@@ -1,33 +1,69 @@
+Pointer API
+Updated: 09.02.2014
+
 MainScreen
 
 1) get: list[Point] - получение  списка координат точек от сервера для нанесения на карту (параметры from, length)
+Input: entity User
+Fields: int userId, double latitude, longitude
+Output: list of Point //int id, double latitude, longitude
+Input example: {"latitude":"78.4", "latitude":"13.5"}
+2) post: registration - регистрация пользователя
+Input: entity User
+Fields: string name, email
+Output: id of this user
+Input example: {"name":"test", "email":"test@test.com"}
 
 PointDetailsScreen
 
-2.1) get: Point - получение деталей выбранной точки (параметр point_id)
-2.2) post:согласие на встречу /!/отправка пуш уведомления партнеру о согласии
+2.1) get: Point - получение деталей выбранной точки (параметр pointId)
+Input: entity User
+Fields: int userId, double latitude, longitude
+Output: list of Point //int id, double latitude, longitude
+Input example: {"latitude":"78.4", "latitude":"13.5"}
+2.2) post:согласие на встречу
+Input: int pointId, int userId
+Output: 202
+2.3) отправка пуш уведомления партнеру о согласии - GCM
+
 
 UserProfileScreen
 
 3) get: UserInfo - получение полного профиля пользователя (параметр user_id)
+Input: enity User
+Fields: int idUser
+Output: UserInfo // int idUser, boolean male, int age, string about, array int[50] rewards
+Input example: {"idUser":"25"}
 
 NewDescriptionScreen
 
 4) post: Point - создание новой точки встречи (параметр point_id)
+Input: entity Point
+Fields: string url, title, long postDate, expireDate
+Output: 202
 
 ConfirmPointScreen
 
-5.1) get: ConfirmationCode - код для подтверждения сделки (параметр user_id)
-5.2) post: ConfirmationCode - проверка совпадения кодов
-
 AllPointsScreen
 
-6) get: list[PointView] - получение списка сделок с основной информацией о них (параметры from, length, type = 0,1)
+6) get: list[PointView] - получение списка встреч с основной информацией о них (параметры from, length, type = 1, 2)
+Input: entity User
+Fields: int userId, int type
+Output: list of Point //int id, string title, url, (type=2): partnerCode, ourCode
+Input example: {"userId":"78", "type":"1"}
+
 
 RewardsScreen
 
 7) post: list[Rewards] - отправка наград, которые лайкнул пользователь своему партнеру (параметр user_id)
+Input: entity Point
+Fields: int code, array String[5] rewardName
+Output: 202 либо ошибка
 
 CurrentPointScreen
 
-8) post: отказ от встречи /!/отправка пуш уведомления партнеру об отказе
+8.1) post: отказ от встречи 
+Input: entity Point
+Fields: int idPoint, int idUser
+Output: String userName
+8.2) GCM - отправка пуш уведомления партнеру об отказе
