@@ -3,6 +3,13 @@ package com.primerworldapps.pointer.sync;
 import android.accounts.Account;
 import android.content.*;
 import android.os.Bundle;
+import com.android.volley.toolbox.RequestFuture;
+import com.primerworldapps.pointer.network.VolleyHelper;
+import com.primerworldapps.pointer.network.request.GetOpponentsListRequest;
+import com.primerworldapps.pointer.network.response.GetOpponentsListResponse;
+
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -38,6 +45,31 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     private void loadPropositions() {
+        RequestFuture<GetOpponentsListResponse> future = RequestFuture.newFuture();
+        GetOpponentsListRequest request = new GetOpponentsListRequest(2, 3, future, future);
+
+        //make request
+        VolleyHelper.getInstance().addRequest(request);
+
+        //wait for response
+        try {
+            GetOpponentsListResponse response = future.get();
+            if (response.isRequestSucceed()) {
+                saveOpponentsList(response.profiles);
+            } else {
+                //TODO
+                // handle the error
+            }
+        } catch (InterruptedException e) {
+            //TODO
+            // handle the error
+        } catch (ExecutionException e) {
+            //TODO
+            // handle the error
+        }
+    }
+
+    private void saveOpponentsList(List<GetOpponentsListResponse.Profile> profiles) {
         //TODO
     }
 }
