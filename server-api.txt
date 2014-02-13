@@ -2,24 +2,44 @@ Pointer API
 Updated: 10.02.2014
 
 +==========================MVP=======================+
-1) изменение профиля 
+1) получить id по email
+Mehod: POST
+Url: http://tq.svit.co/pointer/reggoogle.php
+Parametrs: { "email":"maxml@inbox.ru"}
+Output: {"code":0,"id":2}
+
+2) получить registrationId по userId
+Mehod: POST
+Url: http://tq.svit.co/pointer/regid.php
+Parametrs: { "userID":"1", "regID":"APA91bHYQAejWJJLg7ClopjPkdfg85GXdup3U0jqc0ttFEhAY5Ele-FprUye5dFhqQAgPa_Fpjt-FA6GHj7vOzyfj2LuEcOD5c4bUnAlnA36ucr9EVuVfeI76wYty64-71vrpB-xbY9bmDLjL0tajWjyNo6Zdom-JQ"}
+Output: {"code":0}
+
+3) изменение профиля 
+Mehod: POST
+Url: http://tq.svit.co/pointer/updateUserInfo.php
+Parametrs: 
+Output: {"code":0}
 POST-запрос со всеми полями пользователя
-Поля пользователя: ид, имя, емейл, кого ищет, кто сам(гендер), его приветствие, фото, возраст, кого ищет по возрасту, поля социалок
 
-2) получение списка людей, с которыми можно поговорить
-GET-запрос - получение трех записей (int age, userId, string name, greeting, photo)
-Input:  http://pointer.svit.co/propositions.php?userId=<мой id>
-Output: {users: [ {userId:"", age:"", name:"", greeting:"", photo:"url"}]}
+4) получение списка людей, с которыми можно поговорить
+Mehod: GET
+Url: http://tq.svit.co/pointer/list.php?id=2&count=3
+Parametrs: id - id пользователя, count - кол-во записей
+Output: {"code":0, proposals: []}
 
-3) регистрация
-POST-запрос - обновление инфо, если ID не равен -1, регистрация если равен
-Fields: string name, email
-Input example: {"name":"test", "email":"test@test.com"}
+5) отправка запроса на обмен личной инфой
+Mehod: GET
+Url: http://tq.svit.co/pointer/send.php?user=2&recipient=1
+Parametrs: user - user id, recipient - recipient id
+Output: {"code":"0","result":"{\u0022multicast_id\u0022:4650836146097217816,\u0022success\u0022:1,\u0022failure\u0022:0,\u0022canonical_ids\u0022:0,\u0022results\u0022:[{\u0022message_id\u0022:\u00220:1392224855600156%61550ec3f9fd7ecd\u0022}]}"}
 
-Output: id пользователя
-Output example: {"userId":"3"}
+4) подтверждение/неподтверждение заявки
+Url: 
+Parametrs: 
+Output: 
+ 
 
-4) гсм-ответ тому, кого выбрал/не выбрал пользователь 
+
 +====================================================+
 
 
