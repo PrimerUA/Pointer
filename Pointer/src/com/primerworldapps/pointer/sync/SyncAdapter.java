@@ -9,6 +9,7 @@ import com.primerworldapps.pointer.datastorage.table.ProposalTable;
 import com.primerworldapps.pointer.network.VolleyHelper;
 import com.primerworldapps.pointer.network.request.GetOpponentsListRequest;
 import com.primerworldapps.pointer.network.response.GetOpponentsListResponse;
+import com.primerworldapps.pointer.utils.Constants;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -48,7 +49,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     private void loadPropositions() {
         RequestFuture<GetOpponentsListResponse> future = RequestFuture.newFuture();
-        GetOpponentsListRequest request = new GetOpponentsListRequest(2, 3, future, future);
+        GetOpponentsListRequest request = new GetOpponentsListRequest(Constants.SELF_ID, Constants.PROPOSALS_LOAD_COUNT, future, future);
 
         //make request
         VolleyHelper.getInstance().addRequest(request);

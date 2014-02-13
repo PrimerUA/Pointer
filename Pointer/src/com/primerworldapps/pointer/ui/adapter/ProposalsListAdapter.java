@@ -3,7 +3,6 @@ package com.primerworldapps.pointer.ui.adapter;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 import com.android.volley.toolbox.NetworkImageView;
 import com.primerworldapps.pointer.R;
 import com.primerworldapps.pointer.datastorage.table.ProposalTable;
+import com.primerworldapps.pointer.network.VolleyHelper;
 
 /**
  * Created with IntelliJ IDEA.
@@ -38,7 +38,7 @@ public class ProposalsListAdapter extends CursorAdapter {
         ViewHolder holder = new ViewHolder();
         holder.name = (TextView)view.findViewById(R.id.name);
         holder.greeting = (TextView)view.findViewById(R.id.greeting);
-        //holder.photo = (NetworkImageView)view.findViewById(R.id.photo);
+        holder.photo = (NetworkImageView)view.findViewById(R.id.photo);
         view.setTag(holder);
 
         return view;
@@ -54,6 +54,7 @@ public class ProposalsListAdapter extends CursorAdapter {
 
         holder.name.setText(cursor.getString(nameColumnIndex));
         holder.greeting.setText(cursor.getString(greetingColumnIndex));
+//        holder.photo.setImageUrl(cursor.getString(photoColumnIndex), VolleyHelper.getInstance().getImageLoader());
     }
 
     private boolean isColumnIndexesCalculated() {
