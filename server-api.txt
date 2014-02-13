@@ -20,6 +20,7 @@ Url: http://tq.svit.co/pointer/updateUserInfo.php
 Parametrs: 
 Output: {"code":0}
 POST-запрос со всеми полями пользователя
+//0-девушка, 1-мальчик
 
 4) получение списка людей, с которыми можно поговорить
 Mehod: GET
