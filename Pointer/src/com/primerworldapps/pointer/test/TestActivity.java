@@ -14,7 +14,9 @@ import com.primerworldapps.pointer.contentprovider.PointerProviderMetadata;
 import com.primerworldapps.pointer.datastorage.table.ProposalTable;
 import com.primerworldapps.pointer.network.VolleyHelper;
 import com.primerworldapps.pointer.network.request.GetOpponentsListRequest;
+import com.primerworldapps.pointer.network.request.SetGCMRegIdRequest;
 import com.primerworldapps.pointer.network.response.GetOpponentsListResponse;
+import com.primerworldapps.pointer.network.response.SetGCMRegIdResponse;
 
 /**
  * Created with IntelliJ IDEA.
@@ -58,6 +60,26 @@ public class TestActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
             ((PointerApplication) getApplication()).requestForcedSync(true);
+            }
+        });
+
+        findViewById(R.id.set_reg_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SetGCMRegIdRequest request = new SetGCMRegIdRequest(1, "APA91bHYQAejWJJLg7ClopjPkdfg85GXdup3U0jqc0ttFEhAY5Ele-FprUye5dFhqQAgPa_Fpjt-FA6GHj7vOzyfj2LuEcOD5c4bUnAlnA36ucr9EVuVfeI76wYty64-71vrpB-xbY9bmDLjL0tajWjyNo6Zdom-JQ",
+                        new Response.Listener<SetGCMRegIdResponse>() {
+                            @Override
+                            public void onResponse(SetGCMRegIdResponse response) {
+                                Log.d("KVEST_TAG", "onResponse");
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d("KVEST_TAG", "onErrorResponse");
+                            }
+                        });
+                VolleyHelper.getInstance().addRequest(request);
             }
         });
     }
