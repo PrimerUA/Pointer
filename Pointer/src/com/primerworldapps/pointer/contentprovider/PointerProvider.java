@@ -29,8 +29,8 @@ public class PointerProvider extends ContentProvider {
     static
     {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        uriMatcher.addURI(PointerProviderMetadata.AUTHORITY, PointerProviderMetadata.PROPOSAL_ITEMS_PATH, PROPOSALS_URI_INDICATOR);
-        uriMatcher.addURI(PointerProviderMetadata.AUTHORITY, PointerProviderMetadata.PROPOSAL_ITEMS_PATH + "/#", PROPOSAL_URI_INDICATOR);
+        uriMatcher.addURI(PointerProviderMetadata.AUTHORITY, PointerProviderMetadata.PROPOSALS_PATH, PROPOSALS_URI_INDICATOR);
+        uriMatcher.addURI(PointerProviderMetadata.AUTHORITY, PointerProviderMetadata.PROPOSALS_PATH + "/#", PROPOSAL_URI_INDICATOR);
     }
 
     @Override

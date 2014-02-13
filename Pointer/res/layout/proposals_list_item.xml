@@ -5,36 +5,16 @@
     android:layout_height="match_parent"
     android:padding="10dip">
     <TextView
-        android:id="@+id/proposal_id"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true" />
-    <TextView
-        android:id="@+id/user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@id/proposal_id"
         android:layout_marginLeft="10dip"/>
     <TextView
-        android:id="@+id/user_level"
+        android:id="@+id/greeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@id/user_name"
+        android:layout_below="@id/name"
         android:layout_marginLeft="10dip"/>
-    <TextView
-        android:id="@+id/longitude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/proposal_id"
-        android:layout_alignParentLeft="true"/>
-    <TextView
-        android:id="@+id/latitude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/proposal_id"
-        android:layout_toRightOf="@id/longitude"
-        android:layout_marginLeft="10dip"/>
+
 </RelativeLayout>

@@ -12,20 +12,22 @@ import android.provider.BaseColumns;
 public class ProposalTable implements BaseColumns {
     public static final String TABLE_NAME = "proposal";
 
-    public static final String USERNAME_COLUMN = "user_name";
-    public static final String USER_LEVEL_COLUMN = "user_level";
-    public static final String LONGITUDE_COLUMN = "longitude";
-    public static final String LATITUDE_COLUMN = "latitude";
+    public static final String NAME_COLUMN = "name";
+    public static final String PHOTO_COLUMN = "photo";
+    public static final String GENDER_COLUMN = "gender";
+    public static final String GREETING_COLUMN = "greeting";
+    public static final String AGE_COLUMN = "age";
 
-    public static final String[] FULL_PROJECTION = {_ID, USERNAME_COLUMN, USER_LEVEL_COLUMN,
-                                                    LONGITUDE_COLUMN, LATITUDE_COLUMN};
+    public static final String[] FULL_PROJECTION = {_ID, NAME_COLUMN, PHOTO_COLUMN,
+                                                    GENDER_COLUMN, GREETING_COLUMN, AGE_COLUMN};
 
     public static final String CREATE_TABLE_SQL = "CREATE TABLE \"" + TABLE_NAME + "\" (\"" +
             _ID + "\" INTEGER PRIMARY KEY, \"" +
-            USERNAME_COLUMN + "\" TEXT DEFAULT \"\", \"" +
-            USER_LEVEL_COLUMN + "\" INTEGER DEFAULT 0, \"" +
-            LONGITUDE_COLUMN + "\" REAL DEFAULT 0, \"" +
-            LATITUDE_COLUMN + "\" REAL DEFAULT 0);";
+            NAME_COLUMN + "\" TEXT DEFAULT \"\", \"" +
+            PHOTO_COLUMN + "\" TEXT DEFAULT \"\", \"" +
+            GENDER_COLUMN + "\" INTEGER DEFAULT 0, \"" +
+            GREETING_COLUMN + "\" TEXT DEFAULT \"\", \"" +
+            AGE_COLUMN + "\" INTEGER DEFAULT 0);";
 
     public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS \"" + TABLE_NAME + "\";";
 }

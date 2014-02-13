@@ -18,7 +18,7 @@ public class PointerProviderMetadata {
     public static final String CONTENT_TYPE_PROPOSAL_COLLECTION = "vnd.android.cursor.dir/vnd.primerworldapps.proposal";
     public static final String CONTENT_TYPE_PROPOSAL_SINGLE = "vnd.android.cursor.item/vnd.primerworldapps.proposal";
 
-    public static final String PROPOSAL_ITEMS_PATH = "proposal";
+    public static final String PROPOSALS_PATH = "proposal";
 
-    public static final Uri PROPOSAL_ITEMS_URI = Uri.parse("content://" + AUTHORITY + "/" + PROPOSAL_ITEMS_PATH);
+    public static final Uri PROPOSALS_URI = Uri.parse("content://" + AUTHORITY + "/" + PROPOSALS_PATH);
 }

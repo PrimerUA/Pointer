@@ -4,6 +4,8 @@ import android.accounts.Account;
 import android.content.*;
 import android.os.Bundle;
 import com.android.volley.toolbox.RequestFuture;
+import com.primerworldapps.pointer.contentprovider.PointerProviderMetadata;
+import com.primerworldapps.pointer.datastorage.table.ProposalTable;
 import com.primerworldapps.pointer.network.VolleyHelper;
 import com.primerworldapps.pointer.network.request.GetOpponentsListRequest;
 import com.primerworldapps.pointer.network.response.GetOpponentsListResponse;
@@ -55,6 +57,11 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         try {
             GetOpponentsListResponse response = future.get();
             if (response.isRequestSucceed()) {
+
+                //clear old propositions
+                contentResolver.delete(PointerProviderMetadata.PROPOSALS_URI, null, null);
+
+                //save new propositions
                 saveOpponentsList(response.profiles);
             } else {
                 //TODO
@@ -70,6 +77,20 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     private void saveOpponentsList(List<GetOpponentsListResponse.Profile> profiles) {
-        //TODO
+        if (!profiles.isEmpty()) {
+            ContentValues values[] = new ContentValues[profiles.size()];
+            for (int i = 0; i < profiles.size(); ++i) {
+                GetOpponentsListResponse.Profile profile = profiles.get(i);
+                values[i] = new ContentValues(6);
+                values[i].put(ProposalTable._ID, profile.userId);
+                values[i].put(ProposalTable.NAME_COLUMN, profile.name);
+                values[i].put(ProposalTable.PHOTO_COLUMN, profile.photo);
+                values[i].put(ProposalTable.AGE_COLUMN, profile.age);
+                values[i].put(ProposalTable.GENDER_COLUMN, profile.gender);
+                values[i].put(ProposalTable.GREETING_COLUMN, profile.greeting);
+            }
+
+            contentResolver.bulkInsert(PointerProviderMetadata.PROPOSALS_URI, values);
+        }
     }
 }

@@ -14,4 +14,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="GetOpponentsListResponse test" />
+    <fragment
+        android:name="com.primerworldapps.pointer.ui.fragment.ProposalsListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>
