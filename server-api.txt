@@ -32,7 +32,7 @@ Output: {"code":0, proposals: []}
 Mehod: GET
 Url: http://tq.svit.co/pointer/send.php?user=2&recipient=1
 Parametrs: user - user id, recipient - recipient id
-Output: {"code":"0","result":"{\u0022multicast_id\u0022:4650836146097217816,\u0022success\u0022:1,\u0022failure\u0022:0,\u0022canonical_ids\u0022:0,\u0022results\u0022:[{\u0022message_id\u0022:\u00220:1392224855600156%61550ec3f9fd7ecd\u0022}]}"}
+Output: {"code":"0","result":"{"multicast_id":4650836146097217816,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1392224855600156%61550ec3f9fd7ecd"}]}"}
 
 4) подтверждение/неподтверждение заявки
 Url: 
