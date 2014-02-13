@@ -63,7 +63,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                 contentResolver.delete(PointerProviderMetadata.PROPOSALS_URI, null, null);
 
                 //save new propositions
-                saveOpponentsList(response.profiles);
+                saveOpponentsList(response.proposals);
             } else {
                 //TODO
                 // handle the error
@@ -77,18 +77,18 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         }
     }
 
-    private void saveOpponentsList(List<GetOpponentsListResponse.Profile> profiles) {
-        if (!profiles.isEmpty()) {
-            ContentValues values[] = new ContentValues[profiles.size()];
-            for (int i = 0; i < profiles.size(); ++i) {
-                GetOpponentsListResponse.Profile profile = profiles.get(i);
+    private void saveOpponentsList(List<GetOpponentsListResponse.Proposal> proposals) {
+        if (!proposals.isEmpty()) {
+            ContentValues values[] = new ContentValues[proposals.size()];
+            for (int i = 0; i < proposals.size(); ++i) {
+                GetOpponentsListResponse.Proposal proposal = proposals.get(i);
                 values[i] = new ContentValues(6);
-                values[i].put(ProposalTable._ID, profile.userId);
-                values[i].put(ProposalTable.NAME_COLUMN, profile.name);
-                values[i].put(ProposalTable.PHOTO_COLUMN, profile.photo);
-                values[i].put(ProposalTable.AGE_COLUMN, profile.age);
-                values[i].put(ProposalTable.GENDER_COLUMN, profile.gender);
-                values[i].put(ProposalTable.GREETING_COLUMN, profile.greeting);
+                values[i].put(ProposalTable._ID, proposal.userId);
+                values[i].put(ProposalTable.NAME_COLUMN, proposal.name);
+                values[i].put(ProposalTable.PHOTO_COLUMN, proposal.photo);
+                values[i].put(ProposalTable.AGE_COLUMN, proposal.age);
+                values[i].put(ProposalTable.GENDER_COLUMN, proposal.gender);
+                values[i].put(ProposalTable.GREETING_COLUMN, proposal.greeting);
             }
 
             contentResolver.bulkInsert(PointerProviderMetadata.PROPOSALS_URI, values);

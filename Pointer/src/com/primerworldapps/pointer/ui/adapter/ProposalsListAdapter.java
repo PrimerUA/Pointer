@@ -54,7 +54,7 @@ public class ProposalsListAdapter extends CursorAdapter {
 
         holder.name.setText(cursor.getString(nameColumnIndex));
         holder.greeting.setText(cursor.getString(greetingColumnIndex));
-//        holder.photo.setImageUrl(cursor.getString(photoColumnIndex), VolleyHelper.getInstance().getImageLoader());
+        holder.photo.setImageUrl(cursor.getString(photoColumnIndex), VolleyHelper.getInstance().getImageLoader());
     }
 
     private boolean isColumnIndexesCalculated() {

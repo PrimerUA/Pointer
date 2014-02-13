@@ -10,9 +10,9 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class GetOpponentsListResponse extends BaseResponse {
-    public List<Profile> profiles;
+    public List<Proposal> proposals;
 
-    public static class Profile {
+    public static class Proposal {
         public int userId;
         public String photo;
         public String name;

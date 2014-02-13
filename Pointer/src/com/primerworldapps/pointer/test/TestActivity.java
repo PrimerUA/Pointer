@@ -1,7 +1,5 @@
 package com.primerworldapps.pointer.test;
 
-import android.app.Activity;
-import android.content.ContentValues;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -10,8 +8,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.primerworldapps.pointer.PointerApplication;
 import com.primerworldapps.pointer.R;
-import com.primerworldapps.pointer.contentprovider.PointerProviderMetadata;
-import com.primerworldapps.pointer.datastorage.table.ProposalTable;
 import com.primerworldapps.pointer.network.VolleyHelper;
 import com.primerworldapps.pointer.network.request.GetOpponentsListRequest;
 import com.primerworldapps.pointer.network.request.SetGCMRegIdRequest;
@@ -38,7 +34,7 @@ public class TestActivity extends FragmentActivity {
                     @Override
                     public void onResponse(GetOpponentsListResponse response) {
                         if (response.isRequestSucceed()) {
-                            for (GetOpponentsListResponse.Profile profile : response.profiles) {
+                            for (GetOpponentsListResponse.Proposal profile : response.proposals) {
                                 Log.d("KVEST_TAG", profile.userId + "-" + profile.name + " : " + profile.greeting);
                             }
                         } else {
@@ -70,7 +66,7 @@ public class TestActivity extends FragmentActivity {
                         new Response.Listener<SetGCMRegIdResponse>() {
                             @Override
                             public void onResponse(SetGCMRegIdResponse response) {
-                                Log.d("KVEST_TAG", "onResponse");
+                                Log.d("KVEST_TAG", "onResponse[" + response.getCode() + " : " + response.getErrorMessage() + "]");
                             }
                         },
                         new Response.ErrorListener() {
