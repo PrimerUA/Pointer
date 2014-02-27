@@ -1,5 +1,7 @@
 package com.primerworldapps.pointer.ui.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -7,6 +9,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.view.View;
+
 import com.primerworldapps.pointer.contentprovider.PointerProviderMetadata;
 import com.primerworldapps.pointer.datastorage.table.ProposalTable;
 import com.primerworldapps.pointer.ui.adapter.ProposalsListAdapter;
@@ -34,7 +37,6 @@ public class ProposalsListFragment extends ListFragment  implements LoaderManage
         //load cursor
         getLoaderManager().initLoader(LOAD_PROPOSALS_ID, null, this);
     }
-
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
         switch (id) {
@@ -56,3 +58,27 @@ public class ProposalsListFragment extends ListFragment  implements LoaderManage
         adapter.swapCursor(null);
     }
 }
+//    AlertDialog.Builder adb = new AlertDialog.Builder(v.getContext());
+//	// заголовок
+//	adb.setTitle("Отправить запрос о знакомстве?");
+//	// сообщение
+//	adb.setMessage("Пользователь получит детали Вашего профиля. Вы получите возможность просмотреть профиль этого пользователя в соц-сетях в случае, если он подтвердит Ваш запрос");
+//	// иконка
+//	adb.setIcon(android.R.drawable.ic_dialog_info);
+//	// кнопка положительного ответа
+//	adb.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+//
+//		@Override
+//		public void onClick(DialogInterface dialog, int which) {
+//			dialog.dismiss();
+//		}
+//	});
+//	// кнопка отрицательного ответа
+//	adb.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+//
+//		@Override
+//		public void onClick(DialogInterface dialog, int which) {
+//			dialog.dismiss();
+//		}
+//	});
+//	adb.create();

@@ -46,7 +46,7 @@ public class VolleyHelper {
         imageLoader = new ImageLoader(requestQueue, new LruBitmapCache(DEFAULT_MEM_CACHE_PERCENT));
     }
 
-    public Request addRequest(Request request) {
+    public Request<?> addRequest(Request<?> request) {
         if (requestQueue != null) {
             return requestQueue.add(request);
         } else {
